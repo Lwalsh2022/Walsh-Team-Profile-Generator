@@ -1,4 +1,4 @@
-//Copied from README challenge. Be sure to change the code accordingly
+
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
