@@ -9,7 +9,9 @@ const fs = require('fs');
 const DIST_DIR = path.resolve(__dirname, "dist");
 const distpath = path.join(DIST_DIR, "team.html");
 
-const render = require("./src/page-template.js");
+console.log("DISTPATH", distpath);
+
+//const render = require("./page-template.js");
 
 const teammembers = [];
 const idarray = [];
@@ -19,6 +21,8 @@ console.log("Welcome to the Team Profile Generator! Please answer the following 
 
 // Function to create manager
 function appMenu() {
+
+    
     function createManager() {
         console.log("Please build your team");
         inquirer.prompt([
@@ -76,12 +80,19 @@ function appMenu() {
                 }
             }
         ]).then(answers => {
+            // uses class defined in lib/Manager.js to create a new manager object
             const manager = new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.managerOfficeNumber);
+            // creates a team member and pushes it to the teammembers array (at top of file)
             teammembers.push(manager);
+            // pushes the id number of your team memberto the idarray (at top of file)
             idarray.push(answers.managerId);
+            // then we move to creating more team members (which are engineers or interns)
             createTeam();
         });
     }
+
+    // when appMenu function runs, then the createManager function runs
+    createManager();
     }
 
 
@@ -100,13 +111,16 @@ function createTeam() {
         }
     ]).then(userChoice => {
         switch (userChoice.memberChoice) {
+            // if you chose to create an engineer, then the addEngineer function runs
             case "Engineer":
                 addEngineer();
                 break;
+            // if you chose to create an intern, then the addIntern function runs
             case "Intern":
                 addIntern();
                 break;
             default:
+                // if you chose to not create any more team members, then the buildTeam function runs
                 buildTeam();
         }
     });
@@ -239,10 +253,9 @@ function addIntern() {
             if (!fs.existsSync(DIST_DIR)) {
             fs.mkdirSync(DIST_DIR);
       }
-    fs.writeFileSync(distPath, render(teamMembers), 'utf-8');
+    fs.writeFile(distPath, render(teamMembers), 'utf-8');
     }
   
 // Function call to initialize app
-    initApp();
 
 appMenu();

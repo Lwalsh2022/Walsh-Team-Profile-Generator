@@ -1,4 +1,4 @@
-src/page-template-js
+
 
 // create the team
 const generateTeam = team => {
@@ -21,7 +21,7 @@ const generateTeam = team => {
     </div>
         `;
     };
-
+}
     // create the html for engineers
     const generateEngineer = engineer => {
         // console.log(engineer);
@@ -57,7 +57,10 @@ const generateTeam = team => {
                 <li class="list-group-item">ID: ${intern.getId()}</li>
                 <li class="list-group-item">Email: <a href="mailto:${intern.getEmail()}">${intern.getEmail()}</a></li>
                 <li class="list-group-item">School: ${intern.getSchool()}</li>
-        
+            </ul>
+        </div>
+    </div>
+        `;
     };
 
     const html = [];
@@ -78,8 +81,8 @@ const generateTeam = team => {
     );
 
     return html.join("");
+    
 
-}
 
 // export function to generate entire page
 // module.exports = team => {
